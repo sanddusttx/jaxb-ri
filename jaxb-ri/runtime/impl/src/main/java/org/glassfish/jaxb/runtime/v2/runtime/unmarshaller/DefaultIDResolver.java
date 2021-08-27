@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,13 +34,14 @@ final class DefaultIDResolver extends IDResolver {
 
     @Override
     public void bind(String id, Object obj) {
-        if(idmap==null)     idmap = new HashMap<String,Object>();
+        if(idmap==null)     idmap = new HashMap<>();
         idmap.put(id,obj);
     }
 
     @Override
     public Callable resolve(final String id, Class targetType) {
         return new Callable() {
+            @Override
             public Object call() throws Exception {
                 if(idmap==null)     return null;
                 return idmap.get(id);

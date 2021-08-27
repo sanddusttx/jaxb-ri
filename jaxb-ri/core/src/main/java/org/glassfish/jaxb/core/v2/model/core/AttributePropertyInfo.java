@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,6 +28,7 @@ public interface AttributePropertyInfo<T,C> extends PropertyInfo<T,C>, NonElemen
      * @return
      *      always non-null.
      */
+    @Override
     NonElement<T,C> getTarget();
 
     /**
@@ -43,5 +44,6 @@ public interface AttributePropertyInfo<T,C> extends PropertyInfo<T,C>, NonElemen
      */
     QName getXmlName();
 
+    @Override
     Adapter<T,C> getAdapter();
 }

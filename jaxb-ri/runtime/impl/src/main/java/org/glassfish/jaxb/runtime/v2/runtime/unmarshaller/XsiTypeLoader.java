@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,6 +39,7 @@ public class XsiTypeLoader extends Loader {
         this.defaultBeanInfo = defaultBeanInfo;
     }
 
+    @Override
     public void startElement(UnmarshallingContext.State state, TagName ea) throws SAXException {
         JaxBeanInfo beanInfo = parseXsiType(state,ea,defaultBeanInfo);
         if(beanInfo==null)
@@ -103,7 +104,7 @@ public class XsiTypeLoader extends Loader {
 
     @Override
     public Collection<QName> getExpectedAttributes() {
-        final Collection<QName> expAttrs =  new HashSet<QName>();
+        final Collection<QName> expAttrs =  new HashSet<>();
         expAttrs.addAll(super.getExpectedAttributes());
         expAttrs.add(XsiTypeQNAME);
         return Collections.unmodifiableCollection(expAttrs);

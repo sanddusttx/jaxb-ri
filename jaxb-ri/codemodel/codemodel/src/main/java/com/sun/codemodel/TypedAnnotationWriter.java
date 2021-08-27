@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,16 +54,19 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
         this.use = use;
     }
 
+    @Override
     public JAnnotationUse getAnnotationUse() {
         return use;
     }
 
+    @Override
     public Class<A> getAnnotationType() {
         return annotation;
     }
 
-    @SuppressWarnings("unchecked")
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         if(method.getDeclaringClass()==JAnnotationWriter.class) {
             try {
@@ -138,10 +141,10 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
         throw new IllegalArgumentException("Unable to handle this method call "+method.toString());
     }
 
-    @SuppressWarnings("unchecked")
-	private Object addArrayValue(Object proxy,String name, Class itemType, Class expectedReturnType, Object arg) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private Object addArrayValue(Object proxy,String name, Class<?> itemType, Class<?> expectedReturnType, Object arg) {
         if(arrays==null)
-            arrays = new HashMap<String,JAnnotationArrayMember>();
+            arrays = new HashMap<>();
         JAnnotationArrayMember m = arrays.get(name);
         if(m==null) {
             m = use.paramArray(name);
@@ -202,21 +205,22 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
     /**
      * Creates a proxy and returns it.
      */
-    @SuppressWarnings("unchecked")
-	private W createProxy() {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private W createProxy() {
         return (W)Proxy.newProxyInstance(
-            SecureLoader.getClassClassLoader(writerType),new Class[]{writerType},this);
+            SecureLoader.getClassClassLoader(writerType),new Class<?>[]{writerType},this);
     }
 
     /**
      * Creates a new typed annotation writer.
      */
-    @SuppressWarnings("unchecked")
-	static <W extends JAnnotationWriter<?>> W create(Class<W> w, JAnnotatable annotatable) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    static <W extends JAnnotationWriter<?>> W create(Class<W> w, JAnnotatable annotatable) {
         Class<? extends Annotation> a = findAnnotationType(w);
         return (W)new TypedAnnotationWriter(a,w,annotatable.annotate(a)).createProxy();
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private static Class<? extends Annotation> findAnnotationType(Class<?> clazz) {
         for( Type t : clazz.getGenericInterfaces()) {
             if(t instanceof ParameterizedType) {

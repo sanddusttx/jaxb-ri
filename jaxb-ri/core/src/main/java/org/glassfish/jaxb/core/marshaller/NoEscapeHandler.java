@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,6 +22,12 @@ import java.io.Writer;
 public class NoEscapeHandler implements CharacterEscapeHandler {
 
     public static final NoEscapeHandler theInstance = new NoEscapeHandler();
+
+    /**
+     * Default constructor.
+     */
+    public NoEscapeHandler() {
+    }
 
     @Override
     public void escape(char[] ch, int start, int length, boolean isAttVal, Writer out) throws IOException {

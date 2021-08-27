@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,7 +48,7 @@ import java.util.HashMap;
 public abstract class Coordinator implements ErrorHandler, ValidationEventHandler {
     
     private final HashMap<Class<? extends XmlAdapter>,XmlAdapter> adapters =
-            new HashMap<Class<? extends XmlAdapter>,XmlAdapter>();
+            new HashMap<>();
 
 
     public final XmlAdapter putAdapter(Class<? extends XmlAdapter> c, XmlAdapter a) {
@@ -118,14 +118,17 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
      */
     protected abstract ValidationEventLocator getLocation();
 
+    @Override
     public final void error(SAXParseException exception) throws SAXException {
         propagateEvent( ValidationEvent.ERROR, exception );
     }
 
+    @Override
     public final void warning(SAXParseException exception) throws SAXException {
         propagateEvent( ValidationEvent.WARNING, exception );
     }
 
+    @Override
     public final void fatalError(SAXParseException exception) throws SAXException {
         propagateEvent( ValidationEvent.FATAL_ERROR, exception );
     }

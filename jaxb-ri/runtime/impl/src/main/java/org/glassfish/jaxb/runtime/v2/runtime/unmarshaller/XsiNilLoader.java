@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,6 +35,7 @@ public class XsiNilLoader extends ProxyLoader {
         assert defaultLoader!=null;
     }
 
+    @Override
     protected Loader selectLoader(UnmarshallingContext.State state, TagName ea) throws SAXException {
         int idx = ea.atts.getIndex(WellKnownNamespace.XML_SCHEMA_INSTANCE,"nil");
 

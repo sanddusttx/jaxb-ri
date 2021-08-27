@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,7 +20,6 @@ enum Messages {
     ILLEGAL_PARAMETER, // 2 args
     UNABLE_TO_FIND_CONVERSION_METHOD, // 3 args
     MISSING_ID, // 1 arg
-    NOT_IMPLEMENTED_IN_2_0,
     UNRECOGNIZED_ELEMENT_NAME,
     TYPE_MISMATCH, // 3 args
     MISSING_OBJECT, // 1 arg

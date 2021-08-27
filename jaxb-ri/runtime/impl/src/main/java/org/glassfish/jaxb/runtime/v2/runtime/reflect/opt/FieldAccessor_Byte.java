@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,10 +25,12 @@ public class FieldAccessor_Byte extends Accessor {
         super(Byte.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).f_byte;
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).f_byte = value==null ? Const.default_value_byte : (Byte)value;
     }

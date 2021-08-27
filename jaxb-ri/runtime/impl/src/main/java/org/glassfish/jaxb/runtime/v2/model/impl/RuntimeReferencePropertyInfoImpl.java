@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,18 +37,22 @@ class RuntimeReferencePropertyInfoImpl extends ReferencePropertyInfoImpl<Type,Cl
         this.acc = rawAcc;
     }
 
+    @Override
     public Set<? extends RuntimeElement> getElements() {
         return (Set<? extends RuntimeElement>)super.getElements();
     }
 
+    @Override
     public Set<? extends RuntimeElement> ref() {
         return (Set<? extends RuntimeElement>)super.ref();
     }
 
+    @Override
     public Accessor getAccessor() {
         return acc;
     }
 
+    @Override
     public boolean elementOnlyContent() {
         return !isMixed();
     }

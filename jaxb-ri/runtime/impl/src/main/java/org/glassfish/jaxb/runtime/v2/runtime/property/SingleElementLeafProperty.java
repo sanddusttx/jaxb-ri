@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,10 +60,12 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
         idRef = ref.getSource().id() == ID.IDREF;
     }
 
+    @Override
     public void reset(BeanT o) throws AccessorException {
         acc.set(o, null);
     }
 
+    @Override
     public String getIdValue(BeanT bean) throws AccessorException, SAXException {
         return xacc.print(bean).toString();
     }
@@ -139,6 +141,7 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
         return acc.isAbstractable(declaredTypeClass); // and is not builtin type
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
         Loader l = new LeafPropertyLoader(xacc);
         if (defaultValue != null)
@@ -154,6 +157,7 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
     }
 
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.ELEMENT;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,26 +32,32 @@ final class XmlAttributeQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlAttributeQuick(upstream, ((XmlAttribute) core));
     }
 
+    @Override
     public Class<XmlAttribute> annotationType() {
         return XmlAttribute.class;
     }
 
+    @Override
     public String name() {
         return core.name();
     }
 
+    @Override
     public String namespace() {
         return core.namespace();
     }
 
+    @Override
     public boolean required() {
         return core.required();
     }

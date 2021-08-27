@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,7 @@ public class EditDistance {
      */
     public static int editDistance( String a, String b ) {
         // let's check cache
-        AbstractMap.SimpleEntry<String,String> entry = new AbstractMap.SimpleEntry<String, String>(a, b); // using this class to avoid creation of my own which will handle PAIR of values
+        AbstractMap.SimpleEntry<String,String> entry = new AbstractMap.SimpleEntry<>(a, b); // using this class to avoid creation of my own which will handle PAIR of values
         Integer result = null;
         if (CACHE.containsKey(entry))
             result = CACHE.get(entry); // looks like we have it

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,8 +18,10 @@ import java.util.ResourceBundle;
  * 
  * @since JAXB 1.0
  */
-public class Messages
-{
+public class Messages {
+
+    private Messages() {}
+
     public static String format( String property ) {
         return format( property, null );
     }
@@ -67,6 +69,7 @@ public class Messages
     /**
      * @deprecated use ERR_MISSING_OBJECT2
      */
+    @Deprecated
     public static final String ERR_MISSING_OBJECT = // 0 args
         "SAXMarshaller.MissingObject";
     
@@ -81,12 +84,14 @@ public class Messages
     /**
      * @deprecated only used from 1.0
      */
+    @Deprecated
     public static final String ERR_DANGLING_IDREF = // 1 arg
         "SAXMarshaller.DanglingIDREF";
 
     /**
      * @deprecated only used from 1.0
      */
+    @Deprecated
     public static final String ERR_NOT_IDENTIFIABLE = // 0 args
         "SAXMarshaller.NotIdentifiable";
 

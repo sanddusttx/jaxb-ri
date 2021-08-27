@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,7 @@
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-bom</artifactId>
         <relativePath>../bom/pom.xml</relativePath>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>com.sun.xml.bind</groupId>
@@ -31,13 +31,14 @@
         JAXB Bill of Materials (BOM) with all dependencies.
         If you are not sure - DON'T USE THIS BOM. Use com.sun.xml.bind:jaxb-bom instead.
     </description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <codemodel.version>${project.version}</codemodel.version>
-        <dtd-parser.version>1.4.3</dtd-parser.version>
+        <dtd-parser.version>1.4.5</dtd-parser.version>
         <relaxng.version>${project.version}</relaxng.version>
         <xsom.version>${project.version}</xsom.version>
-        <ant.version>1.10.9</ant.version>
+        <ant.version>1.10.11</ant.version>
     </properties>
 
     <dependencyManagement>

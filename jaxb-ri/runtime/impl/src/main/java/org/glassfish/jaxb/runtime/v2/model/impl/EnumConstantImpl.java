@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,14 +33,17 @@ class EnumConstantImpl<T,C,F,M> implements EnumConstant<T,C> {
         this.next = next;
     }
 
+    @Override
     public EnumLeafInfo<T,C> getEnclosingClass() {
         return owner;
     }
 
+    @Override
     public final String getLexicalValue() {
         return lexical;
     }
 
+    @Override
     public final String getName() {
         return name;
     }

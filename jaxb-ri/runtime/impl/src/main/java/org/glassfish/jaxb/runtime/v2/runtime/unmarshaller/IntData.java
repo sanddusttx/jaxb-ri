@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -52,23 +52,28 @@ public class IntData extends Pcdata {
                 return i+1;
     }
 
+    @Override
     public String toString() {
         return String.valueOf(data);
     }
 
 
+    @Override
     public int length() {
         return length;
     }
 
+    @Override
     public char charAt(int index) {
         return toString().charAt(index);
     }
 
+    @Override
     public CharSequence subSequence(int start, int end) {
         return toString().substring(start,end);
     }
 
+    @Override
     public void writeTo(UTF8XmlOutput output) throws IOException {
         output.text(data);
     }

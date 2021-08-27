@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,9 +30,12 @@ import java.util.Iterator;
  */
 public class JCommentPart extends ArrayList<Object> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/**
+    protected JCommentPart() {
+    }
+
+    /**
      * Appends a new value.
      *
      * If the value is {@link JType} it will be printed as a @link tag.
@@ -43,6 +46,7 @@ public class JCommentPart extends ArrayList<Object> {
         return this;
     }
 
+        @Override
     public boolean add(Object o) {
         flattenAppend(o);
         return true;

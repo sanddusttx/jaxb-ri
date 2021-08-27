@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -72,7 +72,8 @@ public final class JCodeModel {
     /** All JReferencedClasses are pooled here. */
     private final HashMap<Class<?>,JReferencedClass> refClasses = new HashMap<>();
 
-    
+    private final Map<String, String> classNameReplacer = new HashMap<>();
+
     /** Obtains a reference to the special "null" type. */
     public final JNullType NULL = new JNullType(this);
     // primitive types 
@@ -91,7 +92,7 @@ public final class JCodeModel {
      * as a collision.
      */
     protected static final boolean isCaseSensitiveFileSystem = getFileSystemCaseSensitivity();
-    
+
     private static boolean getFileSystemCaseSensitivity() {
         try {
             // let the system property override, in case the user really
@@ -347,7 +348,23 @@ public final class JCodeModel {
         return r;
     }
 
-	
+    /**
+     * Specify class names or packages to be replaced when the model is dumped into files.
+     * @param c1 the regular expression to which class name or package will be replaced.
+     * @param c2 the string to be substituted for the first match.
+     */
+    public void addClassNameReplacer(String c1, String c2) {
+        classNameReplacer.put(c1, c2);
+    }
+
+    /**
+     * Gives an unmodifiable copy of classNameReplacer
+     * @return classNameReplacer
+     */
+    public Map<String, String> classNameReplacer() {
+        return Collections.unmodifiableMap(classNameReplacer);
+    }
+
     /**
      * Obtains a reference to an existing class from its Class object.
      *
@@ -537,7 +554,7 @@ public final class JCodeModel {
                 throw new IllegalArgumentException();
             idx++;
 
-            List<JClass> args = new ArrayList<JClass>();
+            List<JClass> args = new ArrayList<>();
 
             while(true) {
                 args.add(parseTypeName());
@@ -576,24 +593,29 @@ public final class JCodeModel {
             assert !_class.isArray();
         }
 
+        @Override
         public String name() {
             return _class.getSimpleName().replace('$','.');
         }
 
+        @Override
         public String fullName() {
             return _class.getName().replace('$','.');
         }
 
+        @Override
         public String binaryName() {
             return _class.getName();
         }
 
+        @Override
         public JClass outer() {
             Class<?> p = _class.getDeclaringClass();
             if(p==null)     return null;
             return ref(p);
         }
 
+        @Override
         public JPackage _package() {
             String name = fullName();
 
@@ -609,6 +631,7 @@ public final class JCodeModel {
                 return JCodeModel.this._package(name.substring(0, idx));
         }
 
+        @Override
         public JClass _extends() {
             Class<?> sp = _class.getSuperclass();
             if (sp == null) {
@@ -619,30 +642,37 @@ public final class JCodeModel {
                 return ref(sp);
         }
 
+        @Override
         public Iterator<JClass> _implements() {
             final Class<?>[] interfaces = _class.getInterfaces();
             return new Iterator<JClass>() {
                 private int idx = 0;
+                @Override
                 public boolean hasNext() {
                     return idx < interfaces.length;
                 }
+                @Override
                 public JClass next() {
                     return JCodeModel.this.ref(interfaces[idx++]);
                 }
+                @Override
                 public void remove() {
                     throw new UnsupportedOperationException();
                 }
             };
         }
 
+        @Override
         public boolean isInterface() {
             return _class.isInterface();
         }
 
+        @Override
         public boolean isAbstract() {
             return Modifier.isAbstract(_class.getModifiers());
         }
 
+        @Override
         public JPrimitiveType getPrimitiveType() {
             Class<?> v = boxToPrimitive.get(_class);
             if(v!=null)
@@ -651,18 +681,22 @@ public final class JCodeModel {
                 return null;
         }
 
+        @Override
         public boolean isArray() {
             return false;
         }
 
+        @Override
         public void declare(JFormatter f) {
         }
 
+        @Override
         public JTypeVar[] typeParams() {
             // TODO: does JDK 1.5 reflection provides these information?
             return super.typeParams();
         }
 
+        @Override
         protected JClass substituteParams(JTypeVar[] variables, List<JClass> bindings) {
             // TODO: does JDK 1.5 reflection provides these information?
             return this;
@@ -680,8 +714,8 @@ public final class JCodeModel {
     public static final Map<Class<?>,Class<?>> boxToPrimitive;
 
     static {
-        Map<Class<?>,Class<?>> m1 = new HashMap<Class<?>,Class<?>>();
-        Map<Class<?>,Class<?>> m2 = new HashMap<Class<?>,Class<?>>();
+        Map<Class<?>,Class<?>> m1 = new HashMap<>();
+        Map<Class<?>,Class<?>> m2 = new HashMap<>();
 
         m1.put(Boolean.class,Boolean.TYPE);
         m1.put(Byte.class,Byte.TYPE);

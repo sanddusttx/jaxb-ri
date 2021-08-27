@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,22 +31,27 @@ class RuntimeMapPropertyInfoImpl extends MapPropertyInfoImpl<Type,Class,Field,Me
         this.acc = ((RuntimeClassInfoImpl.RuntimePropertySeed)seed).getAccessor();
     }
 
+    @Override
     public Accessor getAccessor() {
         return acc;
     }
 
+    @Override
     public boolean elementOnlyContent() {
         return true;
     }
 
+    @Override
     public RuntimeNonElement getKeyType() {
         return (RuntimeNonElement)super.getKeyType();
     }
 
+    @Override
     public RuntimeNonElement getValueType() {
         return (RuntimeNonElement)super.getValueType();
     }
 
+    @Override
     public List<? extends RuntimeTypeInfo> ref() {
         return (List<? extends RuntimeTypeInfo>)super.ref();
     }

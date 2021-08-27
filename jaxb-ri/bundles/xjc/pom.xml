@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@
     <parent>
         <groupId>com.sun.xml.bind.mvn</groupId>
         <artifactId>jaxb-bundles</artifactId>
-        <version>3.0.0-SNAPSHOT</version>
+        <version>3.1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -32,16 +32,12 @@
         In other words: the *tool* to generate java classes for the given xml representation.
         <!--todo: finish me-->
     </description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <dependencies>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-core</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
         </dependency>
 
         <dependency>
@@ -373,6 +369,7 @@
                             <goal>manifest</goal>
                         </goals>
                         <configuration>
+                            <!-- javax.xml.bind.annotation - used by XJC -target < 3.0-->
                             <instructions>
                                 <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                 <Export-Package>
@@ -381,6 +378,7 @@
                                 </Export-Package>
                                 <Import-Package>
                                     javax.xml.catalog;resolution:=optional,
+                                    javax.xml.bind.annotation;resolution:=optional,
                                     *
                                 </Import-Package>
                             </instructions>

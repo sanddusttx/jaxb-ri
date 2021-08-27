@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,11 +30,11 @@ import java.util.Set;
  */
 @SuppressWarnings({"StringEquality"})
 public final class NameBuilder {
-    private Map<String,Integer> uriIndexMap = new HashMap<String, Integer>();
-    private Set<String> nonDefaultableNsUris = new HashSet<String>();
-    private Map<String,Integer> localNameIndexMap = new HashMap<String, Integer>();
-    private QNameMap<Integer> elementQNameIndexMap = new QNameMap<Integer>();
-    private QNameMap<Integer> attributeQNameIndexMap = new QNameMap<Integer>();
+    private Map<String,Integer> uriIndexMap = new HashMap<>();
+    private Set<String> nonDefaultableNsUris = new HashSet<>();
+    private Map<String,Integer> localNameIndexMap = new HashMap<>();
+    private QNameMap<Integer> elementQNameIndexMap = new QNameMap<>();
+    private QNameMap<Integer> attributeQNameIndexMap = new QNameMap<>();
 
     public Name createElementName(QName name) {
         return createElementName(name.getNamespaceURI(),name.getLocalPart());

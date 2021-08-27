@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,10 +64,12 @@ final class ListElementProperty<BeanT,ListT,ItemT> extends ArrayProperty<BeanT,L
         xacc = new ListTransducedAccessorImpl(xducer,acc,lister);
     }
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.ELEMENT;
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
         Loader l = new LeafPropertyLoader(xacc);
         l = new DefaultValueLoaderDecorator(l, defaultValue);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,14 +27,17 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.TransducedAccessor;
  * @see TransducedAccessor#get
  */
 public final class TransducedAccessor_field_Double extends DefaultTransducedAccessor {
+    @Override
     public String print(Object o) {
         return DatatypeConverterImpl._printDouble( ((Bean)o).f_double );
     }
 
+    @Override
     public void parse(Object o, CharSequence lexical) {
         ((Bean)o).f_double=DatatypeConverterImpl._parseDouble(lexical);
     }
 
+    @Override
     public boolean hasValue(Object o) {
         return true;
     }

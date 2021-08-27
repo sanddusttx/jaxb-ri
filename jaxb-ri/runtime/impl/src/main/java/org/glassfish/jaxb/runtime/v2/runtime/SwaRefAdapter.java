@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,12 +40,14 @@ public final class SwaRefAdapter extends XmlAdapter<String,DataHandler> {
     public SwaRefAdapter() {
     }
 
+    @Override
     public DataHandler unmarshal(String cid) {
         AttachmentUnmarshaller au = UnmarshallingContext.getInstance().parent.getAttachmentUnmarshaller();
         // TODO: error check
         return au.getAttachmentAsDataHandler(cid);
     }
 
+    @Override
     public String marshal(DataHandler data) {
         if(data==null)      return null;
         AttachmentMarshaller am = XMLSerializer.getInstance().attachmentMarshaller;

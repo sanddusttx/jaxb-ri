@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,8 +37,9 @@ final class DomPostInitAction implements Runnable {
     }
 
     // declare the currently in-scope namespace bindings
+    @Override
     public void run() {
-        Set<String> declaredPrefixes = new HashSet<String>();
+        Set<String> declaredPrefixes = new HashSet<>();
         for( Node n=node; n!=null && n.getNodeType()==Node.ELEMENT_NODE; n=n.getParentNode() ) {
             NamedNodeMap atts = n.getAttributes();
             if(atts==null)      continue; // broken DOM. but be graceful.

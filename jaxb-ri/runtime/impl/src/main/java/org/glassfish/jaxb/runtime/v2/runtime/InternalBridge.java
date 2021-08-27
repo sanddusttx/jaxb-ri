@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,6 +25,7 @@ abstract class InternalBridge<T> extends Bridge<T> {
         super(context);
     }
 
+    @Override
     public JAXBContextImpl getContext() {
         return context;
     }

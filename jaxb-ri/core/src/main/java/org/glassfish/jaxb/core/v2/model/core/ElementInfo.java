@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,6 +62,7 @@ public interface ElementInfo<T,C> extends Element<T,C> {
      * <p>
      * This returns the signature in Java and thus isn't affected by the adapter.
      */
+    @Override
     T getType();
 
     /**
@@ -69,6 +70,7 @@ public interface ElementInfo<T,C> extends Element<T,C> {
      *
      * {@link ElementInfo} can only substitute {@link ElementInfo}.
      */
+    @Override
     ElementInfo<T,C> getSubstitutionHead();
 
     /**

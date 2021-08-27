@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,6 +32,7 @@ public final class BridgeContextImpl extends BridgeContext {
         marshaller = context.createMarshaller();
     }
 
+    @Override
     public void setErrorHandler(ValidationEventHandler handler) {
         try {
             unmarshaller.setEventHandler(handler);
@@ -42,18 +43,22 @@ public final class BridgeContextImpl extends BridgeContext {
         }
     }
 
+    @Override
     public void setAttachmentMarshaller(AttachmentMarshaller m) {
         marshaller.setAttachmentMarshaller(m);
     }
 
+    @Override
     public void setAttachmentUnmarshaller(AttachmentUnmarshaller u) {
         unmarshaller.setAttachmentUnmarshaller(u);
     }
 
+    @Override
     public AttachmentMarshaller getAttachmentMarshaller() {
         return marshaller.getAttachmentMarshaller();
     }
 
+    @Override
     public AttachmentUnmarshaller getAttachmentUnmarshaller() {
         return unmarshaller.getAttachmentUnmarshaller();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,7 +45,7 @@ public abstract class JaxbContainer {
      * Creates new instance of JaxbContainer with empty version, intended for JAXB purposes only!
      */
     protected JaxbContainer() {
-        this.deployments = new ArrayList<JaxbDeployment>();
+        this.deployments = new ArrayList<>();
     }
 
     /**

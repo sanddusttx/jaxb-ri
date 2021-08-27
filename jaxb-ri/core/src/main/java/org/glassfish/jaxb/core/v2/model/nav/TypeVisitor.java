@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ abstract class TypeVisitor<T,P> {
         assert t!=null;
 
         if (t instanceof Class)
-            return onClass((Class)t,param);
+            return onClass((Class<?>)t,param);
         if (t instanceof ParameterizedType)
             return onParameterizdType( (ParameterizedType)t,param);
         if(t instanceof GenericArrayType)
@@ -39,7 +39,7 @@ abstract class TypeVisitor<T,P> {
         throw new IllegalArgumentException();
     }
 
-    protected abstract T onClass(Class c, P param);
+    protected abstract T onClass(Class<?> c, P param);
     protected abstract T onParameterizdType(ParameterizedType p, P param);
     protected abstract T onGenericArray(GenericArrayType g, P param);
     protected abstract T onVariable(TypeVariable v, P param);

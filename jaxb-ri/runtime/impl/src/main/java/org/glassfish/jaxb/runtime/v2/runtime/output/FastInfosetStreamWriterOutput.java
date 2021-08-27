@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -192,12 +192,13 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
      */
     final static class AppData implements VocabularyApplicationData {
         final Map<JAXBContext, TablesPerJAXBContext> contexts =
-                new WeakHashMap<JAXBContext, TablesPerJAXBContext>();
+                new WeakHashMap<>();
         final Collection<TablesPerJAXBContext> collectionOfContexts = contexts.values();
 
         /**
          * Clear all the tables.
          */
+        @Override
         public void clear() {
             for(TablesPerJAXBContext c : collectionOfContexts)
                 c.requireClearTables();

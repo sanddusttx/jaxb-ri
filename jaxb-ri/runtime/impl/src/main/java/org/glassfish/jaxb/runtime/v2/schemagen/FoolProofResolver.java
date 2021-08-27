@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,6 +34,7 @@ final class FoolProofResolver extends SchemaOutputResolver {
         this.resolver = resolver;
     }
 
+    @Override
     public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
         logger.entering(getClass().getName(),"createOutput",new Object[]{namespaceUri,suggestedFileName});
         Result r = resolver.createOutput(namespaceUri,suggestedFileName);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,6 @@ import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.core.v2.model.core.Adapter;
 import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedAccessorFactory;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Receiver;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
@@ -124,6 +123,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
         set(bean, (ValueT) value);
     }
 
+    @Override
     public void receive(UnmarshallingContext.State state, Object o) throws SAXException {
         try {
             set((BeanT) state.getTarget(), (ValueT) o);
@@ -170,11 +170,11 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
      * and performs the type adaption as necessary.
      */
     public final <T> Accessor<BeanT, T> adapt(Class<T> targetType, final Class<? extends XmlAdapter<T, ValueT>> adapter) {
-        return new AdaptedAccessor<BeanT, ValueT, T>(targetType, this, adapter);
+        return new AdaptedAccessor<>(targetType, this, adapter);
     }
 
     public final <T> Accessor<BeanT, T> adapt(Adapter<Type, Class> adapter) {
-        return new AdaptedAccessor<BeanT, ValueT, T>(
+        return new AdaptedAccessor<>(
                 (Class<T>) Utils.REFLECTION_NAVIGATOR.erasure(adapter.defaultType),
                 this,
                 adapter.adapterType);
@@ -222,6 +222,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             }
         }
 
+        @Override
         public ValueT get(BeanT bean) {
             try {
                 return (ValueT) f.get(bean);
@@ -230,6 +231,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             }
         }
 
+        @Override
         public void set(BeanT bean, ValueT value) {
             try {
                 if (value == null)
@@ -242,14 +244,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
 
         @Override
         public Accessor<BeanT, ValueT> optimize(JAXBContextImpl context) {
-            if (context != null && context.fastBoot) {
-                // let's not waste time on doing this for the sake of faster boot.
-                return this;
-            }
-            Accessor<BeanT, ValueT> acc = OptimizedAccessorFactory.get(f);
-            if (acc != null) {
-                return acc;
-            }
             return this;
         }
     }
@@ -316,6 +310,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             }
         }
 
+        @Override
         public ValueT get(BeanT bean) throws AccessorException {
             try {
                 return (ValueT) getter.invoke(bean);
@@ -326,6 +321,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             }
         }
 
+        @Override
         public void set(BeanT bean, ValueT value) throws AccessorException {
             try {
                 if (value == null)
@@ -356,20 +352,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
 
         @Override
         public Accessor<BeanT, ValueT> optimize(JAXBContextImpl context) {
-            if (getter == null || setter == null) {
-                // if we aren't complete, OptimizedAccessor won't always work
-                return this;
-            }
-            if (context != null && context.fastBoot) {
-                // let's not waste time on doing this for the sake of faster boot.
-                return this;
-            }
-
-            Accessor<BeanT, ValueT> acc = OptimizedAccessorFactory.get(getter, setter);
-            if (acc != null) {
-                return acc;
-            }
-
             return this;
         }
     }
@@ -417,10 +399,12 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     }
 
     private static final Accessor ERROR = new Accessor<Object, Object>(Object.class) {
+        @Override
         public Object get(Object o) {
             return null;
         }
 
+        @Override
         public void set(Object o, Object o1) {
         }
     };
@@ -429,10 +413,12 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
      * {@link Accessor} for {@link JAXBElement#getValue()}.
      */
     public static final Accessor<JAXBElement, Object> JAXB_ELEMENT_VALUE = new Accessor<JAXBElement, Object>(Object.class) {
+        @Override
         public Object get(JAXBElement jaxbElement) {
             return jaxbElement.getValue();
         }
 
+        @Override
         public void set(JAXBElement jaxbElement, Object o) {
             jaxbElement.setValue(o);
         }

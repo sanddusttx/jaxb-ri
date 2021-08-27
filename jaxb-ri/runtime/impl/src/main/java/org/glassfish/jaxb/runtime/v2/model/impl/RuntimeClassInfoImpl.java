@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -115,10 +115,12 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
     }
 
 
+    @Override
     public Method getFactoryMethod(){
         return super.getFactoryMethod();
     }
     
+    @Override
     public final RuntimeClassInfoImpl getBaseClass() {
         return (RuntimeClassInfoImpl)super.getBaseClass();
     }
@@ -160,6 +162,7 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
     }
 
 
+    @Override
     public void link() {
         getTransducer();    // populate the transducer
         super.link();
@@ -167,6 +170,7 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
 
     private Accessor<?,Map<QName,String>> attributeWildcardAccessor;
 
+    @Override
     public <B> Accessor<B,Map<QName,String>> getAttributeWildcard() {
         for( RuntimeClassInfoImpl c=this; c!=null; c=c.getBaseClass() ) {
             if(c.attributeWildcard!=null) {
@@ -181,6 +185,7 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
     private boolean computedTransducer = false;
     private Transducer xducer = null;
 
+    @Override
     public Transducer getTransducer() {
         if(!computedTransducer) {
             computedTransducer = true;
@@ -261,9 +266,10 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
         if(reader().hasFieldAnnotation(XmlLocation.class,f))
             // TODO: check for XmlLocation signature
             // TODO: check a collision with the super class
-            xmlLocationAccessor = new Accessor.FieldReflection<Object,Locator>(f);
+            xmlLocationAccessor = new Accessor.FieldReflection<>(f);
     }
 
+    @Override
     public Accessor<?,Locator> getLocatorField() {
         return xmlLocationAccessor;
     }
@@ -281,26 +287,32 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
             this.acc = acc;
         }
 
+        @Override
         public String getName() {
             return core.getName();
         }
 
+        @Override
         public <A extends Annotation> A readAnnotation(Class<A> annotationType) {
             return core.readAnnotation(annotationType);
         }
 
+        @Override
         public boolean hasAnnotation(Class<? extends Annotation> annotationType) {
             return core.hasAnnotation(annotationType);
         }
 
+        @Override
         public Type getRawType() {
             return core.getRawType();
         }
 
+        @Override
         public Location getLocation() {
             return core.getLocation();
         }
 
+        @Override
         public Locatable getUpstream() {
             return core.getUpstream();
         }
@@ -326,14 +338,12 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
             this.ownerClass = ownerClass;
         }
 
+        @Override
         public boolean useNamespace() {
             return xacc.useNamespace();
         }
 
-        public boolean isDefault() {
-            return false;
-        }
-
+        @Override
         public void declareNamespace(BeanT bean, XMLSerializer w) throws AccessorException {
             try {
                 xacc.declareNamespace(bean,w);
@@ -342,7 +352,8 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
             }
         }
 
-        public @NotNull CharSequence print(BeanT o) throws AccessorException {
+        public @NotNull@Override
+ CharSequence print(BeanT o) throws AccessorException {
             try {
                 CharSequence value = xacc.print(o);
                 if(value==null)
@@ -353,6 +364,7 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
             }
         }
 
+        @Override
         public BeanT parse(CharSequence lexical) throws AccessorException, SAXException {
             UnmarshallingContext ctxt = UnmarshallingContext.getInstance();
             BeanT inst;
@@ -367,18 +379,21 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
             return inst;
         }
 
+        @Override
         public void writeText(XMLSerializer w, BeanT o, String fieldName) throws IOException, SAXException, XMLStreamException, AccessorException {
             if(!xacc.hasValue(o))
                 throw new AccessorException(Messages.THERE_MUST_BE_VALUE_IN_XMLVALUE.format(o));
             xacc.writeText(w,o,fieldName);
         }
 
+        @Override
         public void writeLeafElement(XMLSerializer w, Name tagName, BeanT o, String fieldName) throws IOException, SAXException, XMLStreamException, AccessorException {
             if(!xacc.hasValue(o))
                 throw new AccessorException(Messages.THERE_MUST_BE_VALUE_IN_XMLVALUE.format(o));
             xacc.writeLeafElement(w,tagName,o,fieldName);
         }
 
+        @Override
         public QName getTypeName(BeanT instance) {
             return null;
         }

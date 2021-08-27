@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,20 +38,24 @@ class TypeRefImpl<TypeT,ClassDeclT> implements TypeRef<TypeT,ClassDeclT> {
         assert type!=null;
     }
 
+    @Override
     public NonElement<TypeT,ClassDeclT> getTarget() {
         if(ref==null)
             calcRef();
         return ref;
     }
 
+    @Override
     public QName getTagName() {
         return elementName;
     }
 
+    @Override
     public boolean isNillable() {
         return isNillable;
     }
 
+    @Override
     public String getDefaultValue() {
         return defaultValue;
     }
@@ -67,6 +71,7 @@ class TypeRefImpl<TypeT,ClassDeclT> implements TypeRef<TypeT,ClassDeclT> {
         assert ref!=null;
     }
 
+    @Override
     public PropertyInfo<TypeT,ClassDeclT> getSource() {
         return owner;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -192,6 +192,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
         return null;
     }
 
+    @Override
     public void marshal(Object target,Result result) throws JAXBException {
         write(target, createXmlOutput(result), createPostInitAction(result));
     }
@@ -524,14 +525,14 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     }
 
     @Override
-    public <A extends XmlAdapter> void setAdapter(Class<A> type, A adapter) {
+    public <A extends XmlAdapter<?, ?>> void setAdapter(Class<A> type, A adapter) {
         if(type==null)
             throw new IllegalArgumentException();
         serializer.putAdapter(type,adapter);
     }
 
     @Override
-    public <A extends XmlAdapter> A getAdapter(Class<A> type) {
+    public <A extends XmlAdapter<?, ?>> A getAdapter(Class<A> type) {
         if(type==null)
             throw new IllegalArgumentException();
         if(serializer.containsAdapter(type))
@@ -564,6 +565,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     /**
      * Default error handling behavior fot {@link Marshaller}.
      */
+    @Override
     public boolean handleEvent(ValidationEvent event) {
         // draconian by default
         return false;

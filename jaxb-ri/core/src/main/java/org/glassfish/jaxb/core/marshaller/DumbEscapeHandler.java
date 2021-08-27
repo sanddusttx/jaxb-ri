@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,6 +29,7 @@ public class DumbEscapeHandler implements CharacterEscapeHandler {
     
     public static final CharacterEscapeHandler theInstance = new DumbEscapeHandler(); 
     
+    @Override
     public void escape(char[] ch, int start, int length, boolean isAttVal, Writer out) throws IOException {
         int limit = start+length;
         for (int i = start; i < limit; i++) {

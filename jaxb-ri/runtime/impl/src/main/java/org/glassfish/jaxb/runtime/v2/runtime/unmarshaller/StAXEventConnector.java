@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,6 +66,7 @@ final class StAXEventConnector extends StAXConnector {
         staxEventReader = staxCore;
     }
 
+    @Override
     public void bridge() throws XMLStreamException {
 
         try {
@@ -117,10 +118,12 @@ final class StAXEventConnector extends StAXConnector {
         }
     }
 
+    @Override
     protected Location getCurrentLocation() {
         return event.getLocation();
     }
 
+    @Override
     protected String getCurrentQName() {
         QName qName;
         if(event.isEndElement())

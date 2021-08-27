@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,14 +32,17 @@ import java.io.IOException;
  * @see TransducedAccessor#get
  */
 public final class TransducedAccessor_method_Integer extends DefaultTransducedAccessor {
+    @Override
     public String print(Object o) {
         return DatatypeConverterImpl._printInt( ((Bean)o).get_int() );
     }
 
+    @Override
     public void parse(Object o, CharSequence lexical) {
         ((Bean)o).set_int(DatatypeConverterImpl._parseInt(lexical));
     }
 
+    @Override
     public boolean hasValue(Object o) {
         return true;
     }

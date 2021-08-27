@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,15 +31,18 @@ public final class FlattenIterator<T> implements Iterator<T> {
     }
 
 
+    @Override
     public void remove() {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean hasNext() {
         getNext();
         return next!=null;
     }
 
+    @Override
     public T next() {
         T r = next;
         next = null;

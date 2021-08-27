@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,7 +59,7 @@ JAXB_PATH=${JAXB_HOME}/mod/jaxb-xjc.jar:\
 ${JAXB_HOME}/mod/jakarta.xml.bind-api.jar:\
 ${JAXB_HOME}/mod/jaxb-core.jar:\
 ${JAXB_HOME}/mod/jaxb-impl.jar:\
-${JAXB_HOME}/mod/jakarta.activation.jar:\
+${JAXB_HOME}/mod/jakarta.activation-api.jar:\
 
 if [ -n "$JAVA_TOOL_OPTIONS" ]
 then
@@ -67,7 +67,7 @@ then
     unset JAVA_TOOL_OPTIONS
 fi
 
-JAVA_VERSION=$("$JAVA" -version 2>&1 | head -n 1 | cut -d'"' -f2 | sed -E 's/^(1\.)?([0-9]+).+$/\2/')
+JAVA_VERSION=$("$JAVA" -version 2>&1 | head -n 1 | cut -d'"' -f2 | sed -E 's/^(1\.)?([0-9]+).*$/\2/')
 echo "Java major version: ${JAVA_VERSION}"
 
 if [ -n "$_OPTS" ]
@@ -82,5 +82,5 @@ then
   exec "${JAVA}" -cp "${JAXB_PATH}" ${XJC_OPTS} com.sun.tools.xjc.XJCFacade "$@"
 else
   #module path
-  exec "${JAVA}" --module-path "${JAXB_PATH}" ${XJC_OPTS} -m com.sun.tools.xjc "$@"
+  exec "${JAVA}" --module-path "${JAXB_PATH}" --add-modules com.sun.xml.bind ${XJC_OPTS} -m com.sun.tools.xjc "$@"
 fi

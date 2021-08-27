@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,6 +33,7 @@ abstract class StAXConnector {
     protected final XmlVisitor.TextPredictor predictor;
 
     private final class TagNameImpl extends TagName {
+        @Override
         public String getQname() {
             return StAXConnector.this.getCurrentQName();
         }
@@ -59,18 +60,23 @@ abstract class StAXConnector {
 
     protected final void handleStartDocument(NamespaceContext nsc) throws SAXException {
         visitor.startDocument(new LocatorEx() {
+            @Override
             public ValidationEventLocator getLocation() {
                 return new ValidationEventLocatorImpl(this);
             }
+            @Override
             public int getColumnNumber() {
                 return getCurrentLocation().getColumnNumber();
             }
+            @Override
             public int getLineNumber() {
                 return getCurrentLocation().getLineNumber();
             }
+            @Override
             public String getPublicId() {
                 return getCurrentLocation().getPublicId();
             }
+            @Override
             public String getSystemId() {
                 return getCurrentLocation().getSystemId();
             }

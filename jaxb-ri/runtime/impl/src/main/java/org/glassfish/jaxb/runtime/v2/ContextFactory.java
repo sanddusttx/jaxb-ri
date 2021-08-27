@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,7 +50,7 @@ public class ContextFactory {
         if(properties==null)
             properties = Collections.emptyMap();
         else
-            properties = new HashMap<String,Object>(properties);
+            properties = new HashMap<>(properties);
 
         String defaultNsUri = getPropertyValue(properties, JAXBRIContext.DEFAULT_NAMESPACE_REMAP,String.class);
 
@@ -222,7 +222,7 @@ public class ContextFactory {
      */
     public static JAXBContext createContext( String contextPath,
                                              ClassLoader classLoader, Map<String,Object> properties ) throws JAXBException {
-        FinalArrayList<Class> classes = new FinalArrayList<Class>();
+        FinalArrayList<Class> classes = new FinalArrayList<>();
         StringTokenizer tokens = new StringTokenizer(contextPath,":");
         List<Class> indexedClasses;
 
@@ -285,7 +285,7 @@ public class ContextFactory {
         BufferedReader in =
                 new BufferedReader(new InputStreamReader(resourceAsStream, "UTF-8"));
         try {
-            FinalArrayList<Class> classes = new FinalArrayList<Class>();
+            FinalArrayList<Class> classes = new FinalArrayList<>();
             String className = in.readLine();
             while (className != null) {
                 className = className.trim();

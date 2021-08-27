@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,7 +50,7 @@ public class CompositeStructureTest extends TestCase {
         };
         cs.values = new Object[] { "foo", 5, new byte[4], new byte[4] };
 
-        JAXBElement<CompositeStructure> root = new JAXBElement<CompositeStructure>(
+        JAXBElement<CompositeStructure> root = new JAXBElement<>(
                 new QName("", "root"), CompositeStructure.class, cs);
 
         StringWriter sw = new StringWriter();

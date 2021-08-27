@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,6 +48,7 @@ final class FastInfosetConnector extends StAXConnector {
         this.fastInfosetStreamReader = fastInfosetStreamReader;
     }
 
+    @Override
     public void bridge() throws XMLStreamException {
         try {
             // remembers the nest level of elements to know when we are done.
@@ -113,10 +114,12 @@ final class FastInfosetConnector extends StAXConnector {
         }
     }
 
+    @Override
     protected Location getCurrentLocation() {
         return fastInfosetStreamReader.getLocation();
     }
 
+    @Override
     protected String getCurrentQName() {
         return fastInfosetStreamReader.getNameString();
     }
@@ -203,18 +206,22 @@ final class FastInfosetConnector extends StAXConnector {
 
         // CharSequence interface
 
+        @Override
         public final int length() {
             return length;
         }
 
+        @Override
         public final char charAt(final int index) {
             return ch[start + index];
         }
 
+        @Override
         public final CharSequence subSequence(final int start, final int end) {
             return new CharSequenceImpl(ch, this.start + start, end - start);
         }
 
+        @Override
         public String toString() {
             return new String(ch, start, length);
         }

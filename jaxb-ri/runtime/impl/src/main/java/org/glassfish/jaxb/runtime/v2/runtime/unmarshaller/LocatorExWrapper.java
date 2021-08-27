@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,22 +27,27 @@ class LocatorExWrapper implements LocatorEx {
         this.locator = locator;
     }
 
+    @Override
     public ValidationEventLocator getLocation() {
         return new ValidationEventLocatorImpl(locator);
     }
 
+    @Override
     public String getPublicId() {
         return locator.getPublicId();
     }
 
+    @Override
     public String getSystemId() {
         return locator.getSystemId();
     }
 
+    @Override
     public int getLineNumber() {
         return locator.getLineNumber();
     }
 
+    @Override
     public int getColumnNumber() {
         return locator.getColumnNumber();
     }

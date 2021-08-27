@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,34 +34,42 @@ final class XmlSchemaQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlSchemaQuick(upstream, ((XmlSchema) core));
     }
 
+    @Override
     public Class<XmlSchema> annotationType() {
         return XmlSchema.class;
     }
 
+    @Override
     public String location() {
         return core.location();
     }
 
+    @Override
     public String namespace() {
         return core.namespace();
     }
 
+    @Override
     public XmlNs[] xmlns() {
         return core.xmlns();
     }
 
+    @Override
     public XmlNsForm elementFormDefault() {
         return core.elementFormDefault();
     }
 
+    @Override
     public XmlNsForm attributeFormDefault() {
         return core.attributeFormDefault();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -73,14 +73,17 @@ class AttributePropertyInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
         return new QName(uri.intern(),local.intern());
     }
 
+    @Override
     public boolean isRequired() {
         return isRequired;
     }
 
+    @Override
     public final QName getXmlName() {
         return xmlName;
     }
 
+    @Override
     public final PropertyKind kind() {
         return PropertyKind.ATTRIBUTE;
     }

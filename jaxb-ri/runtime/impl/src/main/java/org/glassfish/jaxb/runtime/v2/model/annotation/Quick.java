@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,14 +42,17 @@ public /*so that our code generator can refer to this class*/ abstract class Qui
      */
     protected abstract Quick newInstance( Locatable upstream, Annotation core );
 
+    @Override
     public final Location getLocation() {
         return this;
     }
 
+    @Override
     public final Locatable getUpstream() {
         return upstream;
     }
 
+    @Override
     public final String toString() {
         return getAnnotation().toString();
     }

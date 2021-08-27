@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,6 +47,8 @@ public class BuiltinLeafInfoImpl<TypeT,ClassDeclT> extends LeafInfoImpl<TypeT,Cl
     /**
      * @deprecated always return false at this level.
      */
+    @Override
+    @Deprecated
     public final boolean isElement() {
         return false;
     }
@@ -54,6 +56,8 @@ public class BuiltinLeafInfoImpl<TypeT,ClassDeclT> extends LeafInfoImpl<TypeT,Cl
     /**
      * @deprecated always return null at this level.
      */
+    @Override
+    @Deprecated
     public final QName getElementName() {
         return null;
     }
@@ -61,6 +65,8 @@ public class BuiltinLeafInfoImpl<TypeT,ClassDeclT> extends LeafInfoImpl<TypeT,Cl
     /**
      * @deprecated always return null at this level.
      */
+    @Override
+    @Deprecated
     public final Element<TypeT,ClassDeclT> asElement() {
         return null;
     }
@@ -72,11 +78,11 @@ public class BuiltinLeafInfoImpl<TypeT,ClassDeclT> extends LeafInfoImpl<TypeT,Cl
      */
     public static <TypeT,ClassDeclT>
     Map<TypeT,BuiltinLeafInfoImpl<TypeT,ClassDeclT>> createLeaves( Navigator<TypeT,ClassDeclT,?,?> nav ) {
-        Map<TypeT,BuiltinLeafInfoImpl<TypeT,ClassDeclT>> leaves = new HashMap<TypeT,BuiltinLeafInfoImpl<TypeT,ClassDeclT>>();
+        Map<TypeT,BuiltinLeafInfoImpl<TypeT,ClassDeclT>> leaves = new HashMap<>();
 
         for( RuntimeBuiltinLeafInfoImpl<?> leaf : RuntimeBuiltinLeafInfoImpl.builtinBeanInfos ) {
             TypeT t = nav.ref(leaf.getClazz());
-            leaves.put( t, new BuiltinLeafInfoImpl<TypeT,ClassDeclT>(t,leaf.getTypeNames()) );
+            leaves.put( t, new BuiltinLeafInfoImpl<>(t,leaf.getTypeNames()) );
         }
 
         return leaves;

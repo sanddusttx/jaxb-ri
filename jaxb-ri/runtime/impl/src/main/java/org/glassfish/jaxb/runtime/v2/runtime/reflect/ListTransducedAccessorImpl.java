@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,10 +42,12 @@ public final class ListTransducedAccessorImpl<BeanT,ListT,ItemT,PackT> extends D
         this.acc = acc;
     }
 
+    @Override
     public boolean useNamespace() {
         return xducer.useNamespace();
     }
 
+    @Override
     public void declareNamespace(BeanT bean, XMLSerializer w) throws AccessorException, SAXException {
         ListT list = acc.get(bean);
 
@@ -68,6 +70,7 @@ public final class ListTransducedAccessorImpl<BeanT,ListT,ItemT,PackT> extends D
     // TODO: this is inefficient, consider a redesign
     // perhaps we should directly write to XMLSerializer,
     // or maybe add more methods like writeLeafElement.
+    @Override
     public String print(BeanT o) throws AccessorException, SAXException {
         ListT list = acc.get(o);
 
@@ -119,10 +122,12 @@ public final class ListTransducedAccessorImpl<BeanT,ListT,ItemT,PackT> extends D
         lister.endPacking(pack,bean,acc);
     }
 
+    @Override
     public void parse(BeanT bean, CharSequence lexical) throws AccessorException, SAXException {
         processValue(bean,lexical);
     }
 
+    @Override
     public boolean hasValue(BeanT bean) throws AccessorException {
         return acc.get(bean)!=null;
     }

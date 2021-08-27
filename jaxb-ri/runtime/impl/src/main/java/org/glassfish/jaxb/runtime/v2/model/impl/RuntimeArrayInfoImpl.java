@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,14 +27,17 @@ final class RuntimeArrayInfoImpl extends ArrayInfoImpl<Type,Class,Field,Method> 
         super(builder, upstream, arrayType);
     }
 
+    @Override
     public Class getType() {
         return (Class)super.getType();
     }
 
+    @Override
     public RuntimeNonElement getItemType() {
         return (RuntimeNonElement)super.getItemType();
     }
 
+    @Override
     public <V> Transducer<V> getTransducer() {
         return null;
     }

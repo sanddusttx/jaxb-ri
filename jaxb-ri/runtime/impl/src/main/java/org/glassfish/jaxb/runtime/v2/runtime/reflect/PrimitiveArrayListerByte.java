@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,31 +29,38 @@ final class PrimitiveArrayListerByte<BeanT> extends Lister<BeanT,byte[],Byte,Pri
         primitiveArrayListers.put(Byte.TYPE,new PrimitiveArrayListerByte());
     }
 
+    @Override
     public ListIterator<Byte> iterator(final byte[] objects, XMLSerializer context) {
         return new ListIterator<Byte>() {
             int idx=0;
+            @Override
             public boolean hasNext() {
                 return idx<objects.length;
             }
 
+            @Override
             public Byte next() {
                 return objects[idx++];
             }
         };
     }
 
+    @Override
     public ByteArrayPack startPacking(BeanT current, Accessor<BeanT, byte[]> acc) {
         return new ByteArrayPack();
     }
 
+    @Override
     public void addToPack(ByteArrayPack objects, Byte o) {
         objects.add(o);
     }
 
+    @Override
     public void endPacking( ByteArrayPack pack, BeanT bean, Accessor<BeanT,byte[]> acc ) throws AccessorException {
         acc.set(bean,pack.build());
     }
 
+    @Override
     public void reset(BeanT o,Accessor<BeanT,byte[]> acc) throws AccessorException {
         acc.set(o,new byte[0]);
     }

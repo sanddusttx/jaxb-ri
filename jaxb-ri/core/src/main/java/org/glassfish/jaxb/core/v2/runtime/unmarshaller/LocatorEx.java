@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,38 +53,47 @@ public interface LocatorEx extends Locator {
             node = vel.getNode();
         }
 
+        @Override
         public Object getObject() {
             return object;
         }
 
+        @Override
         public Node getNode() {
             return node;
         }
 
+        @Override
         public int getOffset() {
             return offset;
         }
 
+        @Override
         public URL getURL() {
             return url;
         }
 
+        @Override
         public int getColumnNumber() {
             return columnNumber;
         }
 
+        @Override
         public int getLineNumber() {
             return lineNumber;
         }
 
+        @Override
         public String getSystemId() {
             return systemId;
         }
 
+        @Override
         public String getPublicId() {
             return publicId;
         }
 
+        @Override
         public ValidationEventLocator getLocation() {
             return this;
         }

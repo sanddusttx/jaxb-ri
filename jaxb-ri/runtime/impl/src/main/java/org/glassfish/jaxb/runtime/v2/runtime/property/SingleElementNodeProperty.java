@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,7 +48,7 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
 
     private final QName[] acceptedElements;
 
-    private final Map<Class,TagAndType> typeNames = new HashMap<Class,TagAndType>();
+    private final Map<Class,TagAndType> typeNames = new HashMap<>();
 
     private RuntimeElementPropertyInfo prop;
     
@@ -88,10 +88,12 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
         prop = null;
     }
 
+    @Override
     public void reset(BeanT bean) throws AccessorException {
         acc.set(bean,null);
     }
 
+    @Override
     public String getIdValue(BeanT beanT) {
         return null;
     }
@@ -133,6 +135,7 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
         }
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
         JAXBContextImpl context = chain.context;
 
@@ -149,6 +152,7 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
         }
     }
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.ELEMENT;
     }

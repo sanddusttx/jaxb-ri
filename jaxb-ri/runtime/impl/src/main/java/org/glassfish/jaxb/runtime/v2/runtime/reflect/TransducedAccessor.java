@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,6 @@ import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedTransducedAccessorFactory;
 import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Patcher;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
@@ -132,13 +131,6 @@ public abstract class TransducedAccessor<BeanT> {
         if(prop.id()==ID.IDREF)
             return new IDREFTransducedAccessorImpl(prop.getAccessor());
 
-        if (xducer.isDefault() && context != null && !context.fastBoot) {
-            TransducedAccessor xa = OptimizedTransducedAccessorFactory.get(prop);
-            if (xa != null) {
-                return xa;
-            }
-        }
-
         if(xducer.useNamespace())
             return new CompositeContextDependentTransducedAccessorImpl( context, xducer, prop.getAccessor() );
         else
@@ -205,16 +197,19 @@ public abstract class TransducedAccessor<BeanT> {
             this.acc = acc.optimize(context);
         }
 
+        @Override
         public CharSequence print(BeanT bean) throws AccessorException {
             ValueT o = acc.get(bean);
             if(o==null)     return null;
             return xducer.print(o);
         }
 
+        @Override
         public void parse(BeanT bean, CharSequence lexical) throws AccessorException, SAXException {
             acc.set(bean,xducer.parse(lexical));
         }
 
+        @Override
         public boolean hasValue(BeanT bean) throws AccessorException {
             return acc.getUnadapted(bean)!=null;
         }
@@ -249,6 +244,7 @@ public abstract class TransducedAccessor<BeanT> {
             this.targetType = acc.getValueType();
         }
 
+        @Override
         public String print(BeanT bean) throws AccessorException, SAXException {
             TargetT target = acc.get(bean);
             if(target==null)    return null;
@@ -272,6 +268,7 @@ public abstract class TransducedAccessor<BeanT> {
                 acc.set(bean,t);
         }
 
+        @Override
         public void parse(final BeanT bean, CharSequence lexical) throws AccessorException, SAXException {
             final String idref = WhiteSpaceProcessor.trim(lexical).toString();
             final UnmarshallingContext context = UnmarshallingContext.getInstance();
@@ -299,6 +296,7 @@ public abstract class TransducedAccessor<BeanT> {
                 // try again later
                 final LocatorEx loc = new LocatorEx.Snapshot(context.getLocator());
                 context.addPatcher(new Patcher() {
+                    @Override
                     public void run() throws SAXException {
                         try {
                             TargetT t = (TargetT)callable.call();
@@ -321,6 +319,7 @@ public abstract class TransducedAccessor<BeanT> {
             }
         }
 
+        @Override
         public boolean hasValue(BeanT bean) throws AccessorException {
             return acc.get(bean)!=null;
         }

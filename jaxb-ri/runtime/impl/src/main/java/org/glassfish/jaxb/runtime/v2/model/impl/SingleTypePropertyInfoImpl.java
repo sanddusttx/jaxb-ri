@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,6 +53,7 @@ abstract class SingleTypePropertyInfoImpl<T,C,F,M>
             this.acc = null;
     }
 
+    @Override
     public List<? extends NonElement<T,C>> ref() {
         return Collections.singletonList(getTarget());
     }
@@ -69,6 +70,7 @@ abstract class SingleTypePropertyInfoImpl<T,C,F,M>
         return this;
     }
 
+    @Override
     public void link() {
         super.link();
 

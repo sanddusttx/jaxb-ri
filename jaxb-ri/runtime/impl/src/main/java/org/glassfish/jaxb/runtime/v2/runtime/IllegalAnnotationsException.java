@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,9 +37,10 @@ public class IllegalAnnotationsException extends JAXBException {
     public IllegalAnnotationsException(List<IllegalAnnotationException> errors) {
         super(errors.size()+" counts of IllegalAnnotationExceptions");
         assert !errors.isEmpty() : "there must be at least one error";
-        this.errors = Collections.unmodifiableList(new ArrayList<IllegalAnnotationException>(errors));
+        this.errors = Collections.unmodifiableList(new ArrayList<>(errors));
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(super.toString());
         sb.append('\n');
@@ -62,7 +63,8 @@ public class IllegalAnnotationsException extends JAXBException {
     }
 
     public static class Builder implements ErrorHandler {
-        private final List<IllegalAnnotationException> list = new ArrayList<IllegalAnnotationException>();
+        private final List<IllegalAnnotationException> list = new ArrayList<>();
+        @Override
         public void error(IllegalAnnotationException e) {
             list.add(e);
         }

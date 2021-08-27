@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ import junit.framework.TestCase;
  */
 public class CollisionCheckStackTest extends TestCase {
     public void test1() {
-        CollisionCheckStack<String> s = new CollisionCheckStack<String>();
+        CollisionCheckStack<String> s = new CollisionCheckStack<>();
         assertFalse(s.push("foo"));
         assertFalse(s.push("bar"));
         s.pop();
@@ -32,7 +32,7 @@ public class CollisionCheckStackTest extends TestCase {
      * Tests the reallocation and reset.
      */
     public void test2() {
-        CollisionCheckStack<Integer> s = new CollisionCheckStack<Integer>();
+        CollisionCheckStack<Integer> s = new CollisionCheckStack<>();
 
         for( int j=0; j<3; j++ ) {
             for( int i=0; i<100; i++ )

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -90,6 +90,7 @@ import java.io.InputStream;
         }
     }
 
+    @Override
     public UnmarshallerHandler getUnmarshallerHandler() {
         return getUnmarshallerHandler(true,null);
     }
@@ -185,6 +186,7 @@ import java.io.InputStream;
         return true;
     }
 
+    @Override
     protected Object unmarshal( XMLReader reader, InputSource source ) throws JAXBException {
         return unmarshal0(reader,source,null);
     }
@@ -308,6 +310,7 @@ import java.io.InputStream;
         return (JAXBElement)unmarshal0(node,getBeanInfo(expectedType));
     }
 
+    @Override
     public final Object unmarshal( Node node ) throws JAXBException {
         return unmarshal0(node,null);
     }
@@ -499,7 +502,7 @@ import java.io.InputStream;
     /**
      * @deprecated since 2.0
      */
-    @Override
+    @Deprecated
     public boolean isValidating() {
         throw new UnsupportedOperationException();
     }
@@ -507,13 +510,13 @@ import java.io.InputStream;
     /**
      * @deprecated since 2.0
      */
-    @Override
+    @Deprecated
     public void setValidating(boolean validating) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <A extends XmlAdapter> void setAdapter(Class<A> type, A adapter) {
+    public <A extends XmlAdapter<?, ?>> void setAdapter(Class<A> type, A adapter) {
         if (type==null) {
             throw new IllegalArgumentException();
         }
@@ -521,7 +524,7 @@ import java.io.InputStream;
     }
 
     @Override
-    public <A extends XmlAdapter> A getAdapter(Class<A> type) {
+    public <A extends XmlAdapter<?, ?>> A getAdapter(Class<A> type) {
         if(type==null) {
             throw new IllegalArgumentException();
         }
@@ -542,6 +545,7 @@ import java.io.InputStream;
     /**
      * Default error handling behavior for {@link Unmarshaller}.
      */
+    @Override
     public boolean handleEvent(ValidationEvent event) {
         return event.getSeverity()!=ValidationEvent.FATAL_ERROR;
     }
@@ -587,6 +591,7 @@ import java.io.InputStream;
      *  Must be called from same thread which created the UnmarshallerImpl instance.
      * @throws IOException 
      */
+    @Override
     public void close() throws IOException {
         ClassFactory.cleanCache();
     }
